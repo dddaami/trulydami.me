@@ -1,0 +1,51 @@
+---
+interface Props {
+  title: string;
+  author: string;
+  cover: string;
+  dateRead: string;
+  url: string;
+}
+
+const { cover, author, title, dateRead, url } = Astro.props;
+---
+
+<article
+  class="max-w-sm rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200"
+>
+  <a
+    href={url}
+    aria-label={`Read more about ${title} by ${author}`}
+    class="flex flex-col h-full"
+  >
+    <figure class="overflow-hidden rounded-t-lg">
+      <img
+        src={cover}
+        alt={`Cover of the book ${title}`}
+        loading="lazy"
+        class="w-full object-cover aspect-[3/4]"
+      />
+    </figure>
+
+    <div class="p-4 flex flex-col flex-grow">
+      <h2 itemprop="name" class="text-xl font-semibold text-gray-900 mb-1">
+        {title}
+      </h2>
+      <p class="text-gray-600 font-medium mb-1">{author}</p>
+      <time
+        class="text-sm text-gray-500 mb-3"
+        datetime={dateRead}
+        itemprop="dateRead"
+      >
+        Read on {
+          new Date(dateRead).toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        }
+      </time>
+      <!-- <p class="text-gray-700 flex-grow">{excerpt}</p> -->
+    </div>
+  </a>
+</article>
