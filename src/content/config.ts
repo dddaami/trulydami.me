@@ -20,7 +20,7 @@ export const projectCollection = defineCollection({
 			description: z.string(),
 			website_url: z.string().url().optional().nullable(),
 			github_url: z.string().url().optional().nullable(),
-			image: z.string().regex(/\.(png|jpg|jpeg|gif)$/),
+			image: z.string().regex(/\.(png|jpg|jpeg|gif|webp)$/),
 			tags: z.array(z.string().optional()),
 			status: z.enum([
 				"active",
@@ -34,7 +34,32 @@ export const projectCollection = defineCollection({
 	),
 });
 
+export const bookNoteCollection = defineCollection({
+	type: "content",
+	schema: z.object({
+		title: z.string().regex(/^[A-Za-z0-9-\.\s]+$/),
+		author: z.string(),
+		description: z.string(),
+		dateRead: z.date(),
+		url: z.string().url().optional().nullable(),
+		cover: z.string().regex(/\.(png|jpg|jpeg|gif|webp)$/),
+		category: z.enum([
+			"money",
+			"health",
+			"career",
+			"leadership",
+			"personal development",
+			"productivity",
+			"philosophy",
+			"programming",
+			"spiritual",
+			"software engineering",
+		]),
+	}),
+});
+
 export const collections = {
 	blog: blogCollection,
 	projects: projectCollection,
+	bookNotes: bookNoteCollection,
 };
